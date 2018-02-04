@@ -1,0 +1,27 @@
+body {
+  font-family: sans-serif;
+}
+
+div {
+  background-color: #ddd;
+  padding: 4px;
+  border: 1px solid transparent;
+}
+
+.h {
+  display: flex;
+  flex-direction: row;
+}
+
+body .focused .focused .focused .focused {
+  border: 1px solid purple;
+}
+body .focused .focused .focused {
+  border: 1px solid blue;
+}
+body .focused .focused {
+  border: 1px solid green;
+}
+body .focused {
+  border: 1px solid red;
+}
