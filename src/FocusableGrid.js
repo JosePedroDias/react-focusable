@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class FocusableHorizontalList extends React.Component {
+export default class FocusableGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,24 +24,39 @@ export default class FocusableHorizontalList extends React.Component {
         return true;
       }
 
-      if (delta[1] !== 0) {
-        if (delta[1] === -1 && "onUp" in this.props) {
-          return this.props.onUp(delta);
+      const ipr = this.props.itemsPerRow;
+      const nextSelected = this.state.selected + delta[0] + delta[1] * ipr;
+      const wrapped =
+        delta[0] !== 0 &&
+        Math.floor(this.state.selected / ipr) !==
+          Math.floor(nextSelected / ipr);
+
+      if (wrapped && delta[0] === -1 && !this.props.canWrapLeft) {
+        if ("onLeft" in this.props) {
+          return this.props.onLeft(delta);
         }
-        if (delta[1] === 1 && "onDown" in this.props) {
-          return this.props.onDown(delta);
+        return;
+      }
+      if (wrapped && delta[0] === 1 && !this.props.canWrapRight) {
+        if ("onRight" in this.props) {
+          return this.props.onRight(delta);
         }
-        return false;
+        return;
       }
 
-      const nextSelected = this.state.selected + delta[0];
       if (nextSelected < 0) {
         if ("onLeft" in this.props) {
           return this.props.onLeft(delta);
         }
+        if ("onUp" in this.props) {
+          return this.props.onUp(delta);
+        }
       } else if (nextSelected >= this.focusedEls.length) {
         if ("onRight" in this.props) {
           return this.props.onRight(delta);
+        }
+        if ("onDown" in this.props) {
+          return this.props.onDown(delta);
         }
       } else {
         this.setState({ selected: nextSelected });

@@ -37,10 +37,11 @@ export default class FocusableDebugger extends React.Component {
   };
 
   render() {
+    const Tag = this.props.el || "div";
     return (
-      <div className="debugger" style={{ opacity: this.state.opacity }}>
+      <Tag className="debugger" style={{ opacity: this.state.opacity }}>
         {this.state.direction}
-      </div>
+      </Tag>
     );
   }
 }

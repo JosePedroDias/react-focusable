@@ -27,11 +27,16 @@ export default class FocusableRoot extends React.Component {
   };
 
   render() {
+    const Tag = this.props.el || "div";
     let foundFocusable = false;
     return (
-      <div>
+      <Tag>
         {React.Children.map(this.props.children, el => {
-          if (el.type && el.type.name.indexOf("Focusable") !== -1) {
+          if (
+            el.type &&
+            el.type.name &&
+            el.type.name.indexOf("Focusable") !== -1
+          ) {
             if (foundFocusable) {
               throw new Error(
                 "FocusableRoot should only have at most 1 focusable leaf"
@@ -47,7 +52,7 @@ export default class FocusableRoot extends React.Component {
           }
           return el;
         })}
-      </div>
+      </Tag>
     );
   }
 }

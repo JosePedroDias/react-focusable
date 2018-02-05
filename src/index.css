@@ -26,6 +26,15 @@ body .focused {
   border: 1px solid red;
 }
 
+.grid {
+  width: 6em;
+}
+
+.grid div {
+  width: 2em;
+  display: inline-block;
+}
+
 .debugger {
   font-size: 3em;
   height: 1em;

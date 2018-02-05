@@ -55,12 +55,24 @@ export default class FocusableVerticalList extends React.Component {
   };
 
   render() {
+    const Tag = this.props.el || "div";
     this.focusedEls = [];
     let foundIdx = -1;
     return (
-      <div className={this.props.focused ? "focused" : ""}>
+      <Tag
+        className={[
+          this.props.klass ? this.props.klass : "",
+          this.props.focused ? "focused" : ""
+        ]
+          .join(" ")
+          .trim()}
+      >
         {React.Children.map(this.props.children, el => {
-          if (el.type && el.type.name.indexOf("Focusable") !== -1) {
+          if (
+            el.type &&
+            el.type.name &&
+            el.type.name.indexOf("Focusable") !== -1
+          ) {
             ++foundIdx;
             const focused = foundIdx === this.state.selected;
             return React.cloneElement(el, {
@@ -73,7 +85,7 @@ export default class FocusableVerticalList extends React.Component {
           }
           return el;
         })}
-      </div>
+      </Tag>
     );
   }
 }

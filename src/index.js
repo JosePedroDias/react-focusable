@@ -7,13 +7,14 @@ import FocusableRoot from "./FocusableRoot";
 import FocusableDebugger from "./FocusableDebugger";
 import FocusableHorizontalList from "./FocusableHorizontalList";
 import FocusableVerticalList from "./FocusableVerticalList";
+import FocusableGrid from "./FocusableGrid";
 import FocusableLeaf from "./FocusableLeaf";
 
 function log(delta) {
   console.log("log", delta);
 }
-function logAndExhaust(delta) {
-  console.log("logAndExhaust", delta);
+function stop(delta) {
+  console.log("stop", delta);
   return true;
 }
 
@@ -25,21 +26,35 @@ ReactDOM.render(
     </FocusableRoot>
     <FocusableRoot>
       {/* actual root driving keys to focusable offspring */}
-      <FocusableHorizontalList selected={0}>
+      <FocusableHorizontalList klass="h" selected={0}>
         <FocusableLeaf>A</FocusableLeaf>
-        <FocusableLeaf>B</FocusableLeaf>
+
+        <FocusableGrid klass="grid" itemsPerRow={2} selected={0}>
+          <FocusableLeaf>Ba1</FocusableLeaf>
+          <FocusableLeaf>Bb1</FocusableLeaf>
+
+          <FocusableLeaf>Bc1</FocusableLeaf>
+          <FocusableLeaf>Ba2</FocusableLeaf>
+
+          <FocusableLeaf>Bb2</FocusableLeaf>
+        </FocusableGrid>
+
         <FocusableVerticalList selected={0}>
           <FocusableLeaf>C1</FocusableLeaf>
-          <FocusableHorizontalList selected={0}>
+
+          <FocusableHorizontalList klass="h" selected={0}>
             <FocusableLeaf>C2a</FocusableLeaf>
             <FocusableLeaf>C2b</FocusableLeaf>
           </FocusableHorizontalList>
         </FocusableVerticalList>
+
         <FocusableLeaf>D</FocusableLeaf>
+
         <FocusableHorizontalList
+          klass="h"
           selected={0}
           onLeft={log}
-          onRight={logAndExhaust}
+          onRight={stop}
         >
           <FocusableLeaf>E2a</FocusableLeaf>
           <FocusableLeaf>E2b</FocusableLeaf>
