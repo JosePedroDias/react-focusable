@@ -28,7 +28,6 @@ export default class FocusableRoot extends React.Component {
 
   render() {
     let foundFocusable = false;
-    const that = this;
     return (
       <div>
         {React.Children.map(this.props.children, el => {
@@ -42,7 +41,7 @@ export default class FocusableRoot extends React.Component {
             return React.cloneElement(el, {
               focused: true,
               selected: 0,
-              gf: that.getFocused,
+              gf: this.getFocused,
               gfi: 0
             });
           }

@@ -25,3 +25,8 @@ body .focused .focused {
 body .focused {
   border: 1px solid red;
 }
+
+.debugger {
+  font-size: 3em;
+  height: 1em;
+}

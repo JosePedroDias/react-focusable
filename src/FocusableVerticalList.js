@@ -11,11 +11,15 @@ export default class FocusableVerticalList extends React.Component {
 
   componentWillReceiveProps(props) {
     this.props.gf(this, this.props.gfi);
+    if (isFinite(props.selected)) {
+      this.setState({ selected: props.selected });
+    }
   }
 
   notifyFocusChange = delta => {
     if (this.focusedEls && this.focusedEls.length > 0) {
-      const res = this.focusedEls[this.state.selected].notifyFocusChange(delta);
+      const el = this.focusedEls[this.state.selected];
+      const res = el && el.notifyFocusChange(delta);
       if (res) {
         return true;
       }
@@ -41,6 +45,7 @@ export default class FocusableVerticalList extends React.Component {
         }
       } else {
         this.setState({ selected: nextSelected });
+        return true;
       }
     }
   };
@@ -60,13 +65,10 @@ export default class FocusableVerticalList extends React.Component {
             const focused = foundIdx === this.state.selected;
             return React.cloneElement(el, {
               focused: focused,
-              selected: "selected" in el.props ? el.props.selected : 0,
+              selected:
+                "selected" in el.props && focused ? el.props.selected : -1,
               gf: this.getFocused,
-              gfi: foundIdx,
-              onUp: this.notifyFocusChange,
-              onDown: this.notifyFocusChange
-              // onLeft: this.notifyFocusChange,
-              // onRight: this.notifyFocusChange
+              gfi: foundIdx
             });
           }
           return el;
