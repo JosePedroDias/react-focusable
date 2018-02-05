@@ -3,6 +3,10 @@
   "version": "0.1.1",
   "main": "main.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josepedrodias/react-focusable.git"
+  },
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
